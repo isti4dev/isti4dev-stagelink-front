@@ -1,0 +1,309 @@
+.dashboard-page {
+  display: flex;
+  min-height: 100vh;
+  background: rgb(249, 250, 251);
+}
+
+.sidebar {
+  width: 220px;
+  background: rgb(255, 255, 255);
+  border-right: 1px solid rgb(229, 231, 235);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+  flex-shrink: 0;
+}
+
+.sidebar-logo {
+  font-size: 20px;
+  font-weight: 800;
+  color: rgb(29, 58, 138);
+  padding: 0 20px 24px;
+  border-bottom: 1px solid rgb(229, 231, 235);
+  margin-bottom: 16px;
+}
+
+.sidebar-menu {
+  flex: 1;
+  padding: 0 12px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: rgb(55, 65, 81);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.sidebar-item:hover {
+  background: rgb(239, 246, 255);
+  color: rgb(29, 78, 216);
+}
+
+.sidebar-item.active {
+  background: rgb(239, 246, 255);
+  color: rgb(29, 78, 216);
+  font-weight: 700;
+}
+
+.sidebar-item .icon {
+  font-size: 16px;
+}
+
+.sidebar-logout {
+  padding: 0 12px;
+  margin-top: auto;
+}
+
+.dashboard-main {
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+}
+
+.dashboard-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.notif-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 38px;
+  height: 38px;
+  background: rgb(29, 78, 216);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(17, 24, 39);
+}
+
+.user-role {
+  font-size: 12px;
+  color: rgb(107, 114, 128);
+}
+
+.greeting {
+  margin-bottom: 24px;
+}
+
+.greeting h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: rgb(17, 24, 39);
+  margin-bottom: 4px;
+}
+
+.greeting p {
+  font-size: 14px;
+  color: rgb(107, 114, 128);
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: rgb(255, 255, 255);
+  border-radius: 12px;
+  border: 1px solid rgb(229, 231, 235);
+  padding: 20px;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 28px;
+  font-weight: 800;
+  color: rgb(17, 24, 39);
+  margin-bottom: 4px;
+}
+
+.stat-icon {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: rgb(107, 114, 128);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgb(17, 24, 39);
+}
+
+.see-all {
+  font-size: 13px;
+  color: rgb(29, 78, 216);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.applications-table {
+  background: rgb(255, 255, 255);
+  border-radius: 12px;
+  border: 1px solid rgb(229, 231, 235);
+  overflow: hidden;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr 1fr;
+  padding: 12px 20px;
+  background: rgb(249, 250, 251);
+  border-bottom: 1px solid rgb(229, 231, 235);
+}
+
+.table-header span {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgb(107, 114, 128);
+  text-transform: uppercase;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr 1fr;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgb(243, 244, 246);
+  align-items: center;
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.table-row:hover {
+  background: rgb(249, 250, 251);
+}
+
+.row-offer {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(17, 24, 39);
+}
+
+.row-company {
+  font-size: 13px;
+  color: rgb(107, 114, 128);
+}
+
+.row-date {
+  font-size: 13px;
+  color: rgb(107, 114, 128);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-pending {
+  background: rgb(254, 243, 199);
+  color: rgb(217, 119, 6);
+}
+
+.status-accepted {
+  background: rgb(209, 250, 229);
+  color: rgb(5, 150, 105);
+}
+
+.status-rejected {
+  background: rgb(254, 226, 226);
+  color: rgb(220, 38, 38);
+}
+
+.status-interview {
+  background: rgb(219, 234, 254);
+  color: rgb(29, 78, 216);
+}
+
+.conseil-card {
+  background: rgb(255, 255, 255);
+  border-radius: 12px;
+  border: 1px solid rgb(229, 231, 235);
+  padding: 20px;
+  margin-top: 24px;
+}
+
+.conseil-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgb(17, 24, 39);
+  margin-bottom: 8px;
+}
+
+.conseil-text {
+  font-size: 13px;
+  color: rgb(107, 114, 128);
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  background: rgb(229, 231, 235);
+  border-radius: 9999px;
+  height: 6px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: rgb(29, 78, 216);
+  height: 100%;
+  border-radius: 9999px;
+}
+
+.progress-label {
+  font-size: 12px;
+  color: rgb(107, 114, 128);
+  text-align: right;
+  margin-top: 4px;
+}

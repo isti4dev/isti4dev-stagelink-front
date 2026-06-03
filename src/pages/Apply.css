@@ -1,0 +1,132 @@
+.apply-page {
+  min-height: 100vh;
+  background: rgb(249, 250, 251);
+  padding: 32px 40px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.apply-back {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: rgb(107, 114, 128);
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.apply-back:hover {
+  color: rgb(29, 78, 216);
+}
+
+.apply-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: rgb(17, 24, 39);
+  margin-bottom: 6px;
+}
+
+.apply-subtitle {
+  font-size: 14px;
+  color: rgb(107, 114, 128);
+  margin-bottom: 28px;
+}
+
+.apply-card {
+  background: rgb(255, 255, 255);
+  border-radius: 16px;
+  border: 1px solid rgb(229, 231, 235);
+  padding: 32px;
+}
+
+.apply-group {
+  margin-bottom: 20px;
+}
+
+.apply-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgb(55, 65, 81);
+  margin-bottom: 8px;
+}
+
+.upload-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 120px;
+  border: 2px dashed rgb(209, 213, 219);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: rgb(249, 250, 251);
+  box-sizing: border-box;
+}
+
+.upload-zone:hover {
+  border-color: rgb(29, 78, 216);
+  background: rgb(239, 246, 255);
+}
+
+.upload-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.upload-text {
+  font-size: 13px;
+  color: rgb(107, 114, 128);
+}
+
+.upload-text span {
+  color: rgb(29, 78, 216);
+  font-weight: 600;
+}
+
+.apply-group textarea {
+  width: 100%;
+  border: 1.5px solid rgb(229, 231, 235);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: rgb(17, 24, 39);
+  outline: none;
+  resize: none;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.apply-group textarea:focus {
+  border-color: rgb(29, 78, 216);
+}
+
+.apply-group textarea::placeholder {
+  color: rgb(156, 163, 175);
+}
+
+.btn-apply {
+  width: 100%;
+  background: rgb(29, 78, 216);
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s;
+}
+
+.btn-apply:hover {
+  background: rgb(30, 64, 175);
+}
+
+.btn-apply:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

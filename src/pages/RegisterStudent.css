@@ -1,0 +1,146 @@
+.register-page {
+  min-height: 100vh;
+  background: rgb(249, 250, 251);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+}
+
+.register-box {
+  background: rgb(255, 255, 255);
+  border-radius: 16px;
+  padding: 40px;
+  width: 100%;
+  max-width: 520px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+.register-logo {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 800;
+  color: rgb(29, 58, 138);
+  margin-bottom: 24px;
+}
+
+.register-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: rgb(17, 24, 39);
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.register-subtitle {
+  font-size: 14px;
+  color: rgb(107, 114, 128);
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.type-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.type-btn {
+  border: 2px solid rgb(229, 231, 235);
+  background: rgb(255, 255, 255);
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.type-btn:hover {
+  border-color: rgb(29, 78, 216);
+}
+
+.type-btn.active {
+  border-color: rgb(29, 78, 216);
+  background: rgb(239, 246, 255);
+}
+
+.type-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.type-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(55, 65, 81);
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgb(55, 65, 81);
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  border: 1.5px solid rgb(229, 231, 235);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: rgb(17, 24, 39);
+  outline: none;
+  box-sizing: border-box;
+  background: rgb(255, 255, 255);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: rgb(29, 78, 216);
+}
+
+.form-group input::placeholder {
+  color: rgb(156, 163, 175);
+}
+
+.btn-submit {
+  width: 100%;
+  background: rgb(29, 78, 216);
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.btn-submit:hover {
+  background: rgb(30, 64, 175);
+}
+
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-footer {
+  text-align: center;
+  font-size: 13px;
+  color: rgb(107, 114, 128);
+  margin-top: 20px;
+}
+
+.form-footer a {
+  color: rgb(29, 78, 216);
+  font-weight: 600;
+  text-decoration: none;
+}

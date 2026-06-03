@@ -1,0 +1,129 @@
+.admin-page {
+  min-height: 100vh;
+  background: rgb(249, 250, 251);
+  padding: 32px 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.admin-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: rgb(17, 24, 39);
+  margin-bottom: 28px;
+}
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.admin-stat-card {
+  background: rgb(255, 255, 255);
+  border-radius: 12px;
+  border: 1px solid rgb(229, 231, 235);
+  padding: 20px;
+  text-align: center;
+}
+
+.admin-stat-number {
+  font-size: 28px;
+  font-weight: 800;
+  color: rgb(29, 78, 216);
+  margin-bottom: 4px;
+}
+
+.admin-stat-label {
+  font-size: 12px;
+  color: rgb(107, 114, 128);
+}
+
+.admin-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgb(17, 24, 39);
+  margin-bottom: 16px;
+}
+
+.admin-table {
+  background: rgb(255, 255, 255);
+  border-radius: 12px;
+  border: 1px solid rgb(229, 231, 235);
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+.admin-table-header {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr 1fr;
+  padding: 12px 20px;
+  background: rgb(249, 250, 251);
+  border-bottom: 1px solid rgb(229, 231, 235);
+}
+
+.admin-table-header span {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgb(107, 114, 128);
+  text-transform: uppercase;
+}
+
+.admin-table-row {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr 1fr;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgb(243, 244, 246);
+  align-items: center;
+}
+
+.admin-table-row:last-child {
+  border-bottom: none;
+}
+
+.admin-table-row:hover {
+  background: rgb(249, 250, 251);
+}
+
+.admin-row-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(17, 24, 39);
+}
+
+.admin-row-email {
+  font-size: 13px;
+  color: rgb(107, 114, 128);
+}
+
+.admin-row-city {
+  font-size: 13px;
+  color: rgb(107, 114, 128);
+}
+
+.btn-validate {
+  background: rgb(209, 250, 229);
+  color: rgb(5, 150, 105);
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-validate:hover {
+  background: rgb(167, 243, 208);
+}
+
+.validated-badge {
+  display: inline-block;
+  background: rgb(209, 250, 229);
+  color: rgb(5, 150, 105);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 9999px;
+}
