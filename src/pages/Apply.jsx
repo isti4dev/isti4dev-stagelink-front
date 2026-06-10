@@ -1,36 +1,38 @@
 import { useState } from "react"
-import { Link, useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate, Link } from "react-router-dom"
 import api from "../api/axios"
+import { useAuth } from "../context/AuthContext"
 import toast from "react-hot-toast"
 import "./Apply.css"
 
 export default function Apply() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const [cv, setCv] = useState(null)
-  const [motivation, setMotivation] = useState("")
+  const { user } = useAuth()
   const [loading, setLoading] = useState(false)
+  const [form, setForm] = useState({
+    cover_letter: "",
+    cv_url: "",
+    portfolio_url: "",
+    motivation: "",
+  })
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!cv) {
-      toast.error("Veuillez joindre votre CV")
-      return
-    }
-    const formData = new FormData()
-    formData.append("offer_id", id)
-    formData.append("cv", cv)
-    formData.append("motivation", motivation)
-
     setLoading(true)
     try {
-      await api.post("/applications", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+      await api.post(`/applications`, {
+        offer_id: id,
+        ...form,
       })
       toast.success("Candidature envoyée avec succès !")
       navigate("/dashboard/student")
     } catch (err) {
-      toast.error("Erreur lors de l'envoi")
+      toast.error("Erreur lors de l'envoi de la candidature")
     } finally {
       setLoading(false)
     }
@@ -38,50 +40,97 @@ export default function Apply() {
 
   return (
     <div className="apply-page">
-
-      <Link to={`/offers/${id}`} className="apply-back">
-        ← Retour à l'offre
+      <Link to={`/offers/${id}`} className="back-link">
+        ← Retour
       </Link>
 
-      <h1 className="apply-title">Postuler à l'offre</h1>
-      <p className="apply-subtitle">Complétez votre candidature ci-dessous</p>
+      <div className="apply-container">
+        <div className="apply-header">
+          <h1>Postulez pour ce stage</h1>
+          <p>Remplissez les informations ci-dessous pour soumettre votre candidature</p>
+        </div>
 
-      <div className="apply-card">
-        <form onSubmit={handleSubmit}>
-
-          <div className="apply-group">
-            <label>CV (PDF uniquement) *</label>
-            <label className="upload-zone">
-              <div className="upload-icon">📄</div>
-              <div className="upload-text">
-                {cv ? cv.name : <span>Cliquez pour choisir votre CV</span>}
+        <form onSubmit={handleSubmit} className="apply-form">
+          <div className="form-section">
+            <h2>Informations personnelles</h2>
+            <div className="info-display">
+              <div className="info-item">
+                <label>Nom complet</label>
+                <p>{user?.name}</p>
               </div>
+              <div className="info-item">
+                <label>Email</label>
+                <p>{user?.email}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="form-section">
+            <h2>Documents</h2>
+            <div className="form-group">
+              <label>Lien vers votre CV</label>
               <input
-                type="file"
-                accept=".pdf"
-                onChange={e => setCv(e.target.files[0])}
-                style={{ display: "none" }}
+                type="url"
+                name="cv_url"
+                value={form.cv_url}
+                onChange={handleChange}
+                placeholder="https://exemple.com/mon-cv.pdf"
+                required
               />
-            </label>
+            </div>
+
+            <div className="form-group">
+              <label>Lien vers votre portfolio (optionnel)</label>
+              <input
+                type="url"
+                name="portfolio_url"
+                value={form.portfolio_url}
+                onChange={handleChange}
+                placeholder="https://exemple.com/portfolio"
+              />
+            </div>
           </div>
 
-          <div className="apply-group">
-            <label>Lettre de motivation</label>
-            <textarea
-              rows={6}
-              value={motivation}
-              onChange={e => setMotivation(e.target.value)}
-              placeholder="Expliquez pourquoi vous postulez à cette offre..."
-            />
+          <div className="form-section">
+            <h2>Lettre de motivation</h2>
+            <div className="form-group">
+              <label>Lettre de motivation</label>
+              <textarea
+                name="cover_letter"
+                value={form.cover_letter}
+                onChange={handleChange}
+                placeholder="Expliquez pourquoi vous êtes intéressé par ce stage..."
+                rows="6"
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Motivation supplémentaire</label>
+              <textarea
+                name="motivation"
+                value={form.motivation}
+                onChange={handleChange}
+                placeholder="Ajoutez des informations supplémentaires si nécessaire..."
+                rows="4"
+              />
+            </div>
           </div>
 
-          <button type="submit" className="btn-apply" disabled={loading}>
-            {loading ? "Envoi en cours..." : "Envoyer ma candidature"}
-          </button>
-
+          <div className="form-actions">
+            <button
+              type="button"
+              onClick={() => navigate(`/offers/${id}`)}
+              className="btn-cancel"
+            >
+              Annuler
+            </button>
+            <button type="submit" className="btn-submit" disabled={loading}>
+              {loading ? "Envoi en cours..." : "Soumettre ma candidature"}
+            </button>
+          </div>
         </form>
       </div>
-
     </div>
   )
 }

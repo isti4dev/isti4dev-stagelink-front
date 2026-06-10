@@ -1,100 +1,200 @@
 import { useState, useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import api from "../api/axios"
+import { useAuth } from "../context/AuthContext"
 import toast from "react-hot-toast"
 import "./AdminDashboard.css"
 
 export default function AdminDashboard() {
-  const [stats, setStats] = useState(null)
-  const [companies, setCompanies] = useState([])
+  const { user, logout } = useAuth()
+  const navigate = useNavigate()
+  const [stats, setStats] = useState({ users: 0, offers: 0, applications: 0 })
+  const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
+  const [filter, setFilter] = useState("all")
 
   useEffect(() => {
     Promise.all([
       api.get("/admin/stats"),
-      api.get("/admin/companies"),
+      api.get("/admin/users"),
     ])
-      .then(([statsRes, companiesRes]) => {
+      .then(([statsRes, usersRes]) => {
         setStats(statsRes.data)
-        setCompanies(companiesRes.data)
+        setUsers(usersRes.data)
       })
       .catch(console.error)
       .finally(() => setLoading(false))
   }, [])
 
-  const validateCompany = async (id) => {
+  const handleLogout = async () => {
+    try { await api.post("/logout") } catch {}
+    logout()
+    navigate("/")
+    toast.success("Déconnecté")
+  }
+
+  const updateUserStatus = async (userId, status) => {
     try {
-      await api.put(`/admin/companies/${id}/validate`)
-      setCompanies(prev =>
-        prev.map(c => c.id === id ? { ...c, validated: true } : c)
+      await api.put(`/admin/users/${userId}`, { status })
+      setUsers(prev =>
+        prev.map(u => u.id === userId ? { ...u, status } : u)
       )
-      toast.success("Entreprise validée")
+      toast.success("Statut utilisateur mis à jour")
     } catch {
-      toast.error("Erreur lors de la validation")
+      toast.error("Erreur lors de la mise à jour")
     }
   }
 
-  if (loading) return (
-    <div style={{ textAlign: "center", padding: "80px", color: "rgb(107, 114, 128)" }}>
-      Chargement...
-    </div>
-  )
+  const deleteUser = async (userId) => {
+    if (!window.confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?")) return
+    try {
+      await api.delete(`/admin/users/${userId}`)
+      setUsers(prev => prev.filter(u => u.id !== userId))
+      toast.success("Utilisateur supprimé")
+    } catch {
+      toast.error("Erreur lors de la suppression")
+    }
+  }
+
+  const filteredUsers = filter === "all" ? users : users.filter(u => u.role === filter)
+  const initial = user?.name?.charAt(0).toUpperCase() || "A"
 
   return (
     <div className="admin-page">
+      <aside className="admin-sidebar">
+        <div className="admin-sidebar-logo">StageLink Admin</div>
+        <nav className="admin-sidebar-menu">
+          <a className="admin-sidebar-item active">
+            <span>📊</span> Tableau de bord
+          </a>
+          <a className="admin-sidebar-item">
+            <span>👥</span> Utilisateurs
+          </a>
+          <a className="admin-sidebar-item">
+            <span>📋</span> Offres
+          </a>
+          <a className="admin-sidebar-item">
+            <span>📊</span> Rapports
+          </a>
+          <a className="admin-sidebar-item">
+            <span>⚙️</span> Paramétrer
+          </a>
+        </nav>
+        <div className="admin-sidebar-logout">
+          <button className="admin-sidebar-item" onClick={handleLogout}>
+            <span>🚪</span> Déconnexion
+          </button>
+        </div>
+      </aside>
 
-      <h1 className="admin-title">Administration StageLink</h1>
-
-      {/* STATS */}
-      {stats && (
-        <div className="admin-stats">
-          {[
-            { number: stats.students, label: "Étudiants" },
-            { number: stats.companies, label: "Entreprises" },
-            { number: stats.offers, label: "Offres actives" },
-            { number: stats.applications, label: "Candidatures" },
-          ].map((s, i) => (
-            <div key={i} className="admin-stat-card">
-              <div className="admin-stat-number">{s.number}</div>
-              <div className="admin-stat-label">{s.label}</div>
+      <main className="admin-main">
+        <div className="admin-topbar">
+          <div></div>
+          <div className="admin-user-info">
+            <button style={{ background: "none", border: "none", fontSize: "20px", cursor: "pointer" }}>🔔</button>
+            <div className="admin-avatar">{initial}</div>
+            <div>
+              <div className="admin-user-name">{user?.name}</div>
+              <div className="admin-user-role">Administrateur</div>
             </div>
-          ))}
-        </div>
-      )}
-
-      {/* ENTREPRISES */}
-      <h2 className="admin-section-title">
-        Entreprises en attente de validation
-      </h2>
-      <div className="admin-table">
-        <div className="admin-table-header">
-          <span>Entreprise</span>
-          <span>Email</span>
-          <span>Ville</span>
-          <span>Action</span>
-        </div>
-        {companies.length === 0 ? (
-          <div style={{ padding: "24px", textAlign: "center", color: "rgb(107, 114, 128)" }}>
-            Toutes les entreprises sont validées ✓
           </div>
-        ) : companies.map(company => (
-          <div key={company.id} className="admin-table-row">
-            <span className="admin-row-name">{company.company_name}</span>
-            <span className="admin-row-email">{company.email}</span>
-            <span className="admin-row-city">{company.city}</span>
-            {company.validated ? (
-              <span className="validated-badge">Validée ✓</span>
-            ) : (
+        </div>
+
+        <div className="admin-greeting">
+          <h1>Bienvenue, {user?.name} ! 👋</h1>
+          <p>Gérez le contenu et les utilisateurs de la plateforme</p>
+        </div>
+
+        <div className="admin-stats-row">
+          <div className="admin-stat-card">
+            <div className="admin-stat-icon">👥</div>
+            <div className="admin-stat-content">
+              <div className="admin-stat-number">{stats.users}</div>
+              <div className="admin-stat-label">Utilisateurs</div>
+            </div>
+          </div>
+          <div className="admin-stat-card">
+            <div className="admin-stat-icon">📋</div>
+            <div className="admin-stat-content">
+              <div className="admin-stat-number">{stats.offers}</div>
+              <div className="admin-stat-label">Offres</div>
+            </div>
+          </div>
+          <div className="admin-stat-card">
+            <div className="admin-stat-icon">📮</div>
+            <div className="admin-stat-content">
+              <div className="admin-stat-number">{stats.applications}</div>
+              <div className="admin-stat-label">Candidatures</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="admin-section">
+          <div className="admin-section-header">
+            <h2>Gestion des utilisateurs</h2>
+            <div className="filter-buttons">
               <button
-                className="btn-validate"
-                onClick={() => validateCompany(company.id)}
+                className={`filter-btn ${filter === "all" ? "active" : ""}`}
+                onClick={() => setFilter("all")}
               >
-                Valider
+                Tous
               </button>
-            )}
+              <button
+                className={`filter-btn ${filter === "student" ? "active" : ""}`}
+                onClick={() => setFilter("student")}
+              >
+                Étudiants
+              </button>
+              <button
+                className={`filter-btn ${filter === "company" ? "active" : ""}`}
+                onClick={() => setFilter("company")}
+              >
+                Entreprises
+              </button>
+            </div>
           </div>
-        ))}
-      </div>
 
+          {loading ? (
+            <p>Chargement...</p>
+          ) : (
+            <div className="users-table">
+              <div className="table-header">
+                <span>Nom</span>
+                <span>Email</span>
+                <span>Rôle</span>
+                <span>Statut</span>
+                <span>Actions</span>
+              </div>
+              {filteredUsers.map(u => (
+                <div key={u.id} className="table-row">
+                  <span className="row-name">{u.name}</span>
+                  <span className="row-email">{u.email}</span>
+                  <span className="row-role">
+                    {u.role === "student" ? "Étudiant" : u.role === "company" ? "Entreprise" : "Admin"}
+                  </span>
+                  <span className={`status-badge status-${u.status || "active"}`}>
+                    {u.status === "active" || !u.status ? "Actif" : "Inactif"}
+                  </span>
+                  <div className="row-actions">
+                    <button
+                      className="btn-status"
+                      onClick={() => updateUserStatus(u.id, u.status === "active" ? "inactive" : "active")}
+                    >
+                      {u.status === "active" ? "Désactiver" : "Activer"}
+                    </button>
+                    <button
+                      className="btn-delete"
+                      onClick={() => deleteUser(u.id)}
+                    >
+                      Supprimer
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </main>
     </div>
   )
 }
