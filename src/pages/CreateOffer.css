@@ -1,112 +1,162 @@
-.create-page {
+.create-offer-page {
   min-height: 100vh;
-  background: rgb(249, 250, 251);
-  padding: 32px 40px;
-  max-width: 700px;
-  margin: 0 auto;
+  background: #f9fafb;
+  padding: 20px;
 }
 
-.create-back {
-  display: flex;
+.create-offer-page .back-link {
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  color: rgb(107, 114, 128);
+  color: #1e40af;
   text-decoration: none;
+  margin-bottom: 20px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.create-offer-page .back-link:hover {
+  color: #1e3a8a;
+}
+
+.create-offer-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.create-offer-header {
+  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+  color: white;
+  padding: 40px 30px;
+  text-align: center;
+}
+
+.create-offer-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 28px;
+}
+
+.create-offer-header p {
+  margin: 0;
+  opacity: 0.9;
   font-size: 14px;
-  margin-bottom: 24px;
 }
 
-.create-back:hover {
-  color: rgb(29, 78, 216);
+.create-offer-form {
+  padding: 40px 30px;
 }
 
-.create-title {
-  font-size: 22px;
-  font-weight: 700;
-  color: rgb(17, 24, 39);
-  margin-bottom: 6px;
+.form-section {
+  margin-bottom: 35px;
 }
 
-.create-subtitle {
-  font-size: 14px;
-  color: rgb(107, 114, 128);
-  margin-bottom: 28px;
+.form-section h2 {
+  font-size: 16px;
+  color: #1f2937;
+  margin: 0 0 20px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e5e7eb;
 }
 
-.create-card {
-  background: rgb(255, 255, 255);
-  border-radius: 16px;
-  border: 1px solid rgb(229, 231, 235);
-  padding: 32px;
+.form-group {
+  margin-bottom: 20px;
 }
 
-.create-group {
-  margin-bottom: 18px;
-}
-
-.create-group label {
-  display: block;
-  font-size: 13px;
-  font-weight: 600;
-  color: rgb(55, 65, 81);
-  margin-bottom: 6px;
-}
-
-.create-group input,
-.create-group select,
-.create-group textarea {
-  width: 100%;
-  border: 1.5px solid rgb(229, 231, 235);
-  border-radius: 8px;
-  padding: 12px 14px;
-  font-size: 14px;
-  color: rgb(17, 24, 39);
-  outline: none;
-  box-sizing: border-box;
-  background: rgb(255, 255, 255);
-  font-family: inherit;
-}
-
-.create-group input:focus,
-.create-group select:focus,
-.create-group textarea:focus {
-  border-color: rgb(29, 78, 216);
-}
-
-.create-group input::placeholder,
-.create-group textarea::placeholder {
-  color: rgb(156, 163, 175);
-}
-
-.create-group textarea {
-  resize: none;
-}
-
-.create-row {
+.form-group-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
-.btn-create {
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
   width: 100%;
-  background: rgb(29, 78, 216);
-  color: rgb(255, 255, 255);
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #1e40af;
+  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.btn-cancel {
+  flex: 1;
+  padding: 12px 20px;
+  background: #e5e7eb;
+  color: #374151;
   border: none;
-  border-radius: 8px;
-  padding: 14px;
-  font-size: 15px;
+  border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 8px;
   transition: background 0.2s;
 }
 
-.btn-create:hover {
-  background: rgb(30, 64, 175);
+.btn-cancel:hover {
+  background: #d1d5db;
 }
 
-.btn-create:disabled {
+.btn-submit {
+  flex: 1;
+  padding: 12px 20px;
+  background: #1e40af;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: #1e3a8a;
+}
+
+.btn-submit:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .create-offer-container {
+    border-radius: 0;
+  }
+
+  .create-offer-header {
+    padding: 30px 20px;
+  }
+
+  .create-offer-form {
+    padding: 20px;
+  }
+
+  .form-group-grid {
+    grid-template-columns: 1fr;
+  }
 }
